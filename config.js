@@ -10,34 +10,38 @@ const CONFIG = {
   empresa: "Gestão Executiva",
   logoTexto: "F",
 
-  // ── Google Sheets (conexão ao vivo) ──────────────────────
-  // Para conectar ao vivo:
-  //   1. Abra sua planilha no Google Sheets
-  //   2. Clique em "Compartilhar" → "Qualquer pessoa com o link pode ver"
-  //   3. Cole o ID da planilha abaixo (está na URL da planilha)
-  //
-  // URL da planilha:
-  // https://docs.google.com/spreadsheets/d/SEU_ID_AQUI/edit
-  //                                         ^^^^^^^^^^^^
+  // ── Google Sheets — ABA 1: BASE DE DADOS ─────────────────
+  // URL completa da aba:
+  // https://docs.google.com/spreadsheets/d/1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA/edit?gid=0
   sheetId: "1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA",
-
-  // GID da aba (0 = primeira aba; veja na URL ao clicar na aba)
   sheetGid: "0",
+
+  // ── Google Sheets — ABA 2: ATIVO ─────────────────────────
+  // URL completa da aba:
+  // https://docs.google.com/spreadsheets/d/1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA/edit?gid=1076783807
+  sheetIdAtivo: "1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA",
+  sheetGidAtivo: "1076783807",
+
+  // ── Para conectar ao vivo ─────────────────────────────────
+  // 1. Abra a planilha no Google Sheets
+  // 2. Clique em "Compartilhar" (canto superior direito)
+  // 3. Clique em "Alterar para qualquer pessoa com o link"
+  // 4. Permissão: "Visualizador"  →  Salvar
+  // Pronto! O dashboard vai carregar os dados automaticamente.
 
   // Intervalo de atualização automática em minutos (0 = desativar)
   atualizacaoAutomaticaMinutos: 5,
 
   // ── Regras de status de vencimento ───────────────────────
-  // Define quantos dias antes do vencimento muda o status
-  diasUrgente: 30,    // laranja — menos de X dias
-  diasAtencao: 60,    // amarelo — menos de X dias
+  diasUrgente: 30,   // laranja — menos de X dias para vencer
+  diasAtencao: 60,   // amarelo — menos de X dias para vencer
 
   // ── Tabela: itens por página ──────────────────────────────
   itensPorPagina: 15,
 
   // ── Conflito operacional ──────────────────────────────────
-  // Alerta quando X ou mais pessoas do mesmo cargo/loja estão
-  // de férias no mesmo mês
+  // Alerta quando X ou mais pessoas do mesmo cargo/loja
+  // estiverem de férias no mesmo mês
   limiteConflito: 2,
 
 };

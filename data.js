@@ -2,30 +2,27 @@
 //  DATA.JS — Dados locais de fallback
 //
 //  Este arquivo é usado SOMENTE quando o Google Sheets não
-//  estiver disponível (planilha privada ou sem internet).
+//  estiver acessível (planilha privada ou sem internet).
+//
+//  ✅ Quando a planilha estiver pública → dados vêm do Sheets
+//  ⚠️ Quando privada → dados vêm deste arquivo
 //
 //  Como atualizar:
-//  1. Abra este arquivo no Bloco de Notas (ou qualquer editor)
+//  1. Abra este arquivo no Bloco de Notas
 //  2. Edite os registros dentro de DADOS_LOCAIS abaixo
 //  3. Salve o arquivo
-//  4. Atualize o repositório no GitHub
+//  4. No GitHub: clique no arquivo → lápis ✏️ → cole → Commit
 //
-//  Formato das colunas:
-//  NOME         → Nome completo do colaborador
-//  FUNCAO       → Cargo/função
-//  SUPERVISOR   → Nome do supervisor
-//  GESTAO       → Nome do gestor responsável
-//  LOJA         → Identificador da loja (ex: LOJA 15)
-//  MES_PREVISTO → Mês previsto para férias (ex: JAN./2026)
-//  ULT_FERIAS   → Data das últimas férias (dd/mm/aaaa)
-//  VENCIMENTO   → Data de vencimento do direito (dd/mm/aaaa)
-//  DIAS_VENCER  → Dias até o vencimento (número inteiro)
-//  STATUS       → OK | ATENÇÃO | URGENTE | VENCIDA
-//  LANCADOS     → PROCESSADO | LANÇADO | VERIFICAR
+//  STATUS válidos:   OK | ATENÇÃO | URGENTE | VENCIDA
+//  LANCADOS válidos: PROCESSADO | LANÇADO | VERIFICAR
+//
+//  IMPORTANTE: Sempre coloque vírgula no final de cada bloco { },
+//  exceto no ÚLTIMO registro.
 // ============================================================
 
 const DADOS_LOCAIS = [
-  // Exemplo de registro — apague e substitua pelos seus dados:
+  // ── Substitua pelo seus dados reais ──────────────────────
+  // Copie um bloco abaixo e preencha para cada colaborador:
   {
     NOME: "COLABORADOR EXEMPLO",
     FUNCAO: "CAIXA",
@@ -39,12 +36,11 @@ const DADOS_LOCAIS = [
     STATUS: "OK",
     LANCADOS: "VERIFICAR",
   },
-  // Adicione mais registros aqui seguindo o mesmo formato:
   // {
-  //   NOME: "NOME DO COLABORADOR",
+  //   NOME: "NOME COMPLETO",
   //   FUNCAO: "CARGO",
   //   SUPERVISOR: "NOME SUPERVISOR",
-  //   GESTAO: "NOME GESTAO",
+  //   GESTAO: "NOME GESTOR",
   //   LOJA: "LOJA XX",
   //   MES_PREVISTO: "MMM./AAAA",
   //   ULT_FERIAS: "dd/mm/aaaa",
