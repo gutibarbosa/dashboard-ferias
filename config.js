@@ -32,9 +32,10 @@ const CONFIG = {
   // Intervalo de atualização automática em minutos (0 = desativar)
   atualizacaoAutomaticaMinutos: 5,
 
-  // ── Regras de status de vencimento ───────────────────────
-  diasUrgente: 30,   // laranja — menos de X dias para vencer
-  diasAtencao: 60,   // amarelo — menos de X dias para vencer
+  // ── Regras de sinalização de vencimento ──────────────────
+  // (usado para alertas visuais — referência)
+  diasUrgente: 30,   // 🟠 VENCENDO — menos de X dias para vencer
+  diasAtencao: 60,   // 🟡 ATENÇÃO  — menos de X dias para vencer
 
   // ── Tabela: itens por página ──────────────────────────────
   itensPorPagina: 15,
@@ -43,5 +44,9 @@ const CONFIG = {
   // Alerta quando X ou mais pessoas do mesmo cargo/loja
   // estiverem de férias no mesmo mês
   limiteConflito: 2,
+
+  // ── Alerta financeiro ────────────────────────────────────
+  // Percentual acima da média para disparar alertas (1.5 = 150%)
+  limiteAlertaFinanceiro: 1.5,
 
 };
