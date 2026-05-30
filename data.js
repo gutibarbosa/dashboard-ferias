@@ -1,65 +1,49 @@
 // ============================================================
 //  DATA.JS — Dados locais de fallback
 //
-//  Este arquivo é usado SOMENTE quando o Google Sheets não
-//  estiver acessível (planilha privada ou sem internet).
+//  Usado SOMENTE quando o Google Sheets não estiver acessível.
+//  ✅ Planilha pública → dados vêm do Sheets
+//  ⚠️ Planilha privada → dados vêm deste arquivo
 //
-//  ✅ Quando a planilha estiver pública → dados vêm do Sheets
-//  ⚠️ Quando privada → dados vêm deste arquivo
+//  COLUNAS:
+//  NOME, FUNCAO, SUPERVISOR, GESTAO, LOJA, MES_PREVISTO,
+//  ULT_FERIAS, VENCIMENTO, SINALIZACAO, DIAS_VENCER,
+//  LANCADOS, MEDIA_VALOR, CONFLITO
 //
-//  Como atualizar:
-//  1. Abra este arquivo no Bloco de Notas
-//  2. Edite os registros dentro de DADOS_LOCAIS abaixo
-//  3. Salve o arquivo
-//  4. No GitHub: clique no arquivo → lápis ✏️ → cole → Commit
-//
-//  COLUNAS DA NOVA BASE:
-//  NOME, FUNCAO, SUPERVISOR, GESTAO, LOJA,
-//  MES_PREVISTO, ULT_FERIAS, VENCIMENTO,
-//  SINALIZACAO, DIAS_VENCER, LANCADOS,
-//  MEDIA_VALOR, STATUS_COLAB, CONFLITO
-//
-//  SINALIZACAO válidos : 🟢 APTO | 🟡 ATENÇÃO | 🟠 VENCENDO | 🔴 VENCIDO | ⚪ NÃO APTO
-//  LANCADOS válidos    : PROCESSADO | LANÇADO | VERIFICAR
-//  STATUS_COLAB válidos: ATIVO | DESLIGADO
-//  CONFLITO válidos    : OK | ⚠ CONFLITO
-//
-//  IMPORTANTE: Sempre coloque vírgula no final de cada bloco { },
-//  exceto no ÚLTIMO registro.
+//  SINALIZACAO: 🟢 PRAZO OK | 🟡 ATENÇÃO | 🟠 URGÊNCIA | 🔴 VENCIDO
+//  LANCADOS   : PROCESSADO | LANÇADO | LANÇAR
+//  CONFLITO   : OK | ⚠ CONFLITO
 // ============================================================
 
 const DADOS_LOCAIS = [
-  // ── Substitua pelos seus dados reais ─────────────────────
   {
-    NOME: "COLABORADOR EXEMPLO",
-    FUNCAO: "CAIXA",
-    SUPERVISOR: "SUPERVISOR EXEMPLO",
-    GESTAO: "GESTÃO EXEMPLO",
-    LOJA: "LOJA 01",
-    MES_PREVISTO: "JAN./2026",
-    ULT_FERIAS: "01/01/2024",
-    VENCIMENTO: "01/01/2026",
-    SINALIZACAO: "🟢 APTO",
-    DIAS_VENCER: "120",
-    LANCADOS: "VERIFICAR",
-    MEDIA_VALOR: "2000.00",
-    STATUS_COLAB: "ATIVO",
-    CONFLITO: "OK",
+    NOME:         "COLABORADOR EXEMPLO",
+    FUNCAO:       "CAIXA",
+    SUPERVISOR:   "SUPERVISOR EXEMPLO",
+    GESTAO:       "GESTÃO EXEMPLO",
+    LOJA:         "LOJA 01",
+    MES_PREVISTO: "JUN./2026",
+    ULT_FERIAS:   "01/06/2025",
+    VENCIMENTO:   "01/06/2027",
+    SINALIZACAO:  "🟢 PRAZO OK",
+    DIAS_VENCER:  "400",
+    LANCADOS:     "LANÇADO",
+    MEDIA_VALOR:  "2100.00",
+    CONFLITO:     "OK",
   },
   // {
-  //   NOME: "NOME COMPLETO",
-  //   FUNCAO: "CARGO",
-  //   SUPERVISOR: "NOME SUPERVISOR",
-  //   GESTAO: "NOME GESTOR",
-  //   LOJA: "LOJA XX",
+  //   NOME:         "NOME COMPLETO",
+  //   FUNCAO:       "CARGO",
+  //   SUPERVISOR:   "NOME SUPERVISOR",
+  //   GESTAO:       "NOME GESTOR",
+  //   LOJA:         "LOJA XX",
   //   MES_PREVISTO: "MMM./AAAA",
-  //   ULT_FERIAS: "dd/mm/aaaa",
-  //   VENCIMENTO: "dd/mm/aaaa",
-  //   SINALIZACAO: "🟢 APTO",
-  //   DIAS_VENCER: "000",
-  //   LANCADOS: "PROCESSADO",
-  //   MEDIA_VALOR: "0.00",
-  //   STATUS_COLAB: "ATIVO",
-  //   CONFLITO: "OK",
+  //   ULT_FERIAS:   "dd/mm/aaaa",
+  //   VENCIMENTO:   "dd/mm/aaaa",
+  //   SINALIZACAO:  "🟢 PRAZO OK",
+  //   DIAS_VENCER:  "000",
+  //   LANCADOS:     "PROCESSADO",
+  //   MEDIA_VALOR:  "0.00",
+  //   CONFLITO:     "OK",
   // },
 ];

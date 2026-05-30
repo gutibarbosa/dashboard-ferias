@@ -11,31 +11,29 @@ const CONFIG = {
   logoTexto: "F",
 
   // ── Google Sheets — ABA 1: BASE DE DADOS ─────────────────
-  // URL completa da aba:
-  // https://docs.google.com/spreadsheets/d/1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA/edit?gid=0
-  sheetId: "1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA",
+  sheetId:  "1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA",
   sheetGid: "0",
 
   // ── Google Sheets — ABA 2: ATIVO ─────────────────────────
-  // URL completa da aba:
-  // https://docs.google.com/spreadsheets/d/1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA/edit?gid=1076783807
-  sheetIdAtivo: "1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA",
+  sheetIdAtivo:  "1dQK1gT0fDjs5afbaPGesDc2U1bmhcPxUWdw2yaR4spA",
   sheetGidAtivo: "1076783807",
 
   // ── Para conectar ao vivo ─────────────────────────────────
   // 1. Abra a planilha no Google Sheets
-  // 2. Clique em "Compartilhar" (canto superior direito)
-  // 3. Clique em "Alterar para qualquer pessoa com o link"
-  // 4. Permissão: "Visualizador"  →  Salvar
-  // Pronto! O dashboard vai carregar os dados automaticamente.
+  // 2. Clique em "Compartilhar" → "Qualquer pessoa com o link"
+  // 3. Permissão: "Visualizador" → Salvar
+  // Pronto! O dashboard carrega os dados automaticamente.
 
   // Intervalo de atualização automática em minutos (0 = desativar)
   atualizacaoAutomaticaMinutos: 5,
 
-  // ── Regras de sinalização de vencimento ──────────────────
-  // (usado para alertas visuais — referência)
-  diasUrgente: 30,   // 🟠 VENCENDO — menos de X dias para vencer
-  diasAtencao: 60,   // 🟡 ATENÇÃO  — menos de X dias para vencer
+  // ── Sinalização de vencimento (referência) ───────────────
+  //  🟢 PRAZO OK  → mais de 60 dias
+  //  🟡 ATENÇÃO   → 31 a 60 dias
+  //  🟠 URGÊNCIA  → 0 a 30 dias
+  //  🔴 VENCIDO   → menor que 0 dias
+  diasUrgente: 30,
+  diasAtencao: 60,
 
   // ── Tabela: itens por página ──────────────────────────────
   itensPorPagina: 15,
@@ -45,8 +43,9 @@ const CONFIG = {
   // estiverem de férias no mesmo mês
   limiteConflito: 2,
 
-  // ── Alerta financeiro ────────────────────────────────────
-  // Percentual acima da média para disparar alertas (1.5 = 150%)
+  // ── Alertas financeiros ───────────────────────────────────
+  // Dispara alerta quando custo superar X × a média
+  // 1.5 = 150% da média
   limiteAlertaFinanceiro: 1.5,
 
 };
