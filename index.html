@@ -500,26 +500,27 @@ function parseCSV(txt){
   const lines=txt.trim().split('\n');
   if(lines.length<2)return[];
   const hdrs=parseCSVLine(lines[0]).map(norm);
+  window._lastCsvHeaders=hdrs; // debug: cabecalhos reais normalizados
   return lines.slice(1).map(l=>{
     const vals=parseCSVLine(l);
     const obj={};
     hdrs.forEach((h,i)=>{obj[h]=(vals[i]||'').replace(/^"|"$/g,'').trim();});
-    // guardar campo bruto se vazio
-    const g=k=>obj[k]||'';
+    // helper: tenta multiplos nomes de coluna
+    const g=(...ks)=>{for(const k of ks){if(obj[k]!==undefined&&obj[k]!=='')return obj[k];}return '';};
     return {
-      NOME:        g('NOME'),
-      FUNCAO:      g('FUNCAO'),
-      SUPERVISOR:  g('SUPER'),
-      GESTAO:      g('GESTAO'),
-      LOJA:        g('LOJA'),
-      MES_PREVISTO:fmtMes(g('MES_PREVISTO')),
-      ULT_FERIAS:  fmtDt(g('ULT_FERIAS')),
-      VENCIMENTO:  fmtDt(g('VENCIMENTO')),
-      SINALIZACAO: g('SINALIZACAO'),
-      DIAS_VENCER: g('DIAS_PARA_VENCER')||g('DIAS_VENCER'),
-      LANCADOS:    g('LANCADOS'),
-      MEDIA_VALOR: g('MEDIA_VALOR'),
-      CONFLITO:    g('CONFLITO_FERIAS')
+      NOME:        g('NOME','COLABORADOR','NAME'),
+      FUNCAO:      g('FUNCAO','CARGO','ROLE'),
+      SUPERVISOR:  g('SUPERVISOR','SUPER','SUPERVISORA'),
+      GESTAO:      g('GESTAO','GESTOR','GESTORA','GERENTE'),
+      LOJA:        g('LOJA','UNIDADE','STORE','FILIAL'),
+      MES_PREVISTO:fmtMes(g('MES_PREVISTO','MES','MES_FERIAS','PREVISTO')),
+      ULT_FERIAS:  fmtDt(g('ULT_FERIAS','ULTIMA_FERIAS','DATA_FERIAS')),
+      VENCIMENTO:  fmtDt(g('VENCIMENTO','DATA_VENCIMENTO','VENCE')),
+      SINALIZACAO: g('SINALIZACAO','STATUS','SITUACAO','FLAG'),
+      DIAS_VENCER: g('DIAS_PARA_VENCER','DIAS_VENCER','DIAS','DIAS_RESTANTES'),
+      LANCADOS:    g('LANCADOS','LANCAMENTO','STATUS_LANCAMENTO'),
+      MEDIA_VALOR: g('MEDIA_VALOR','VALOR_MEDIO','VALOR','CUSTO','REMUNERACAO'),
+      CONFLITO:    g('CONFLITO_FERIAS','CONFLITO','CONFLICT')
     };
   }).filter(r=>r.NOME&&r.NOME!=='#VALOR!'&&r.NOME!=='undefined');
 }
@@ -568,13 +569,22 @@ async function loadData(manual=false){
     const parsed=parseCSV(txt);
     if(parsed.length<1)throw new Error('Sem dados');
     allData=parsed.map(processRow);
+    // Verificar se MEDIA_VALOR está sendo lido
+    const comValor=allData.filter(r=>r.MEDIA_VALOR_N>0).length;
+    const hdrsInfo=window._lastCsvHeaders?window._lastCsvHeaders.join(', '):'';
     bar.className='conn-bar ok';sp.style.display='none';
-    msg.textContent=`✓ Google Sheets [${SHEET_NAMES[currentSheet]}] — ${allData.length} registros · ${new Date().toLocaleTimeString('pt-BR')}`;
+    if(comValor===0&&allData.length>0){
+      // Alerta: coluna de valor não encontrada — mostrar cabeçalhos reais
+      bar.className='conn-bar warn';
+      msg.textContent=`⚠ Sheets conectado (${allData.length} registros) mas coluna MEDIA_VALOR não encontrada. Colunas detectadas: ${hdrsInfo}`;
+    } else {
+      msg.textContent=`✓ Google Sheets [${SHEET_NAMES[currentSheet]}] — ${allData.length} registros · ${comValor} com valor · ${new Date().toLocaleTimeString('pt-BR')}`;
+    }
     document.getElementById('lastUpdate').textContent=`Sheets [${SHEET_NAMES[currentSheet]}] · ${new Date().toLocaleTimeString('pt-BR')}`;
   }catch(e){
     allData=DADOS_LOCAIS.map(r=>processRow(normLegacy({...r})));
     bar.className='conn-bar warn';sp.style.display='none';
-    msg.textContent=`⚠ Planilha privada — dados de data.js local. Para conectar: Compartilhar → "Qualquer pessoa com o link"`;
+    msg.textContent=`⚠ Planilha privada ou inacessível (${e.message}) — usando data.js local. Para conectar: Sheets → Compartilhar → "Qualquer pessoa com o link" → Visualizador`;
     document.getElementById('lastUpdate').textContent=`data.js local · ${new Date().toLocaleTimeString('pt-BR')}`;
   }
   populateFilters();applyFilters();
