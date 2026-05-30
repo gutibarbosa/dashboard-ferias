@@ -424,10 +424,23 @@ function fmtDate(s){return (!s||s==='-'||s==='')? '—' : s;}
 function parseDias(v){const n=parseInt(v);return isNaN(n)?9999:n;}
 function parseVal(v){
   if(v===null||v===undefined||v==='')return 0;
-  const n=parseFloat(String(v).replace(/\./g,'').replace(',','.'));
+  // Se já for número, retorna direto
+  if(typeof v==='number')return isNaN(v)?0:v;
+  const s=String(v).trim();
+  if(s==='')return 0;
+  // Formato BR: separador de milhar = ponto, decimal = vírgula  ex: 2.100,50
+  if(/\d\.\d{3},/.test(s)||/,\d{1,2}$/.test(s)){
+    const n=parseFloat(s.replace(/\./g,'').replace(',','.'));
+    return isNaN(n)?0:n;
+  }
+  // Formato US / planilha: separador de milhar = vírgula, decimal = ponto  ex: 2,100.50 ou 2100.50
+  const n=parseFloat(s.replace(/,/g,''));
   return isNaN(n)?0:n;
 }
-function fmtBRL(v){return parseVal(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtBRL(v){
+  const num=typeof v==='number'?v:parseVal(v);
+  return num.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+}
 function safe(v){return v||'—';}
 
 // ── State ─────────────────────────────────────────────────
